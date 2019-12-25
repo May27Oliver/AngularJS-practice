@@ -1,0 +1,299 @@
+1.angular基本語法：
+
+ng-app:
+
+angular在html的運作範圍在有宣告ng-app的標籤內，ng-app可以宣告在<html></html>標籤內，跟vue的app意思一樣。
+
+ex. <html ng-app=""></html>
+
+
+ng-init:
+model載入時，會先執行ng-init，我們可以透過ng-init來設定初始值
+
+使用html標籤，將初始值定義在標籤內，如：
+<div ng-app="">
+	<div ng-init="greeting='Hello';person='World'">
+	{{greeting}} {{person}}
+	</div>
+</div>
+
+
+
+ng-controller 
+另一種方式定義變數是透過ng-controller把變數定義在JavaScript中
+<div ng-app="" ng-controller='MainCtrl'>
+	<div>
+	{{greeting}} {{person}}
+	</div>
+</div>
+
+javaScript檔案：
+function MainCtrl($scope){
+	$scope.greeting="Hello";
+	$scope.person="World";
+}
+
+
+
+
+
+{{}}
+雙大括號裡面可以填入表達式，無論要寫變數、運算子、運算元都可以，大括號可以出現在任何地方，包括class裡。
+
+
+
+
+ng-bind
+ng-bind可以綁定數值到html標籤內。
+如：
+<p>Name: <input type="text" ng-model="name"></p>
+<p ng-bind=name></p>
+
+綁定成功的話<p>會變成這樣：
+
+<p ng-bind=name class=ng-binding>name值</p> //這邊會出線name值在標籤內
+
+
+
+
+
+
+ng-model=""：寫在input裡，表示這個input受ng-app管轄，ng-model= name，input值如有改變，就會啟動髒值檢測，
+
+去查看哪裡還有name，會順便改變該處的值。
+
+
+p.s. anguler在html標籤內每個變數前面都隱含有有$scope，如：
+
+<input type="text" ng-model="firstName">這個標籤的firstName，原本長這樣：$scope.firstName
+
+如果要在controller裡給值，也必須用$scope.firstName的方式去給值，範例：
+
+<div ng-app="myApp" ng-controller="myCtrl">
+     First Name: <input type="text" ng-model="firstName"><br><br>
+     Last Name: <input type="text" ng-model="lastName"><br>
+     <br>
+     Full Name:{{firstName + " " + lastName}}
+</div>
+<script>
+    var app=angular.module('myApp',[]);  //AngularJS Module，()前面是module名稱，後面[]是module是插件名稱
+
+    app.controller('myCtrl',function($scope){  //Angular Controller，不同controller之間的$scope是獨立的。
+        $scope.firstName="";
+        $scope.lastName="";
+    });
+</script> 
+
+
+
+
+
+ng-init可以用來宣告變數、物件、陣列，當然用controller也可以這麼做，也比較常見：
+
+//宣告變數
+
+<div ng-app="" ng-init="firstName='John';lastName='Doe'" ">
+
+{{firstName + "" + lastName}}
+
+</div>
+
+//宣告物件
+<div ng-app="" ng-init="person={firstName:'John',lastName:'Doe'}">
+
+<p>The name is {{ person.lastName }}</p>
+
+</div>
+
+//宣告陣列
+
+<div ng-app="" ng-init="points=[1,15,19,2,40]">
+
+<p>The third result is {{ points[2] }}</p>
+
+</div>
+
+
+
+
+######## Angular modules
+
+1.宣告module本身
+
+<div ng-app = "myApp">....</div>
+<script>
+var app = angular.module("myApp",[]); //這個最常用到。
+</script>
+
+2.Controller 在controller可以宣告變數、物件、陣列
+app.controller('myApp',function($scope){
+	$scope.firstName = "John";
+	$scope.lastName = "Doe";
+});
+
+
+3.Directiv 在directive裡可以自製屬性
+比方ng-temp1
+
+<div ng-app="myApp" ng-temp1></div>
+
+<script>
+var app = angular.module("myApp", []);
+app.directive("ngTemp1", function() {
+
+/* 這裡要注意在html標籤裡是ng-temp1，在directive裡會變成ngTemp1，directive也可以把html模版帶進<div>中
+
+，把-替換成大寫英文字母。*/
+。
+
+    return {
+        template : "<input type='text' placeholder='接口文件要看'>"
+    };
+});
+</script>
+
+
+directive裡最重要的就是binding，可以透過binding指定值要輸出到哪個html上。
+
+另外自製directive的部分，directive可以替換
+html tag   <ng-temp1></ng-temp1>
+Attribute  <div ng-app="myApp" ng-temp1></div>
+Class	   <div class = "ng-temp1"></div>
+Comment    <!-- directive: ng-temp1 -->
+
+你也可以在directive裡加上restrict，如：
+
+var app = angular.module("myApp", []);
+app.directive("ngTemp1", function() {
+    return {
+	restrict : 'A',
+        template : "<input type='text' placeholder='接口文件要看'>"
+    };
+});
+
+//restrict有A,C,E,M
+E是只允許在html tag下發生替換
+A是只允許在屬性裡發生替換
+C class
+M 註解
+
+
+4.ng-repeat 迴圈，就是angular裡的foreach
+
+<div ng-app="myApp"  ng-controller='myCtrl'>
+    <p>loading with ng-repeat:</p>
+    <ul>
+        <li ng-repeat='x in names'>  
+		{{x}}
+        </li>
+	/*
+	用controller或init宣告陣列後就可以在ng-repeat這裡做迴圈印出所有的值，連同html標籤一起印names.length次
+	如果要同時印出索引值，可以以$index的方式放入{{$index + x}}裡。
+	*/
+    </ul>     
+</div>
+<script>
+    var app=angular.module("myApp",[]);
+    app.controller('myCtrl',function($scope){
+        $scope.names=['Jani','Hege','Kai'];
+    });
+</script>
+
+5.ng-model
+有ng-model為屬性的input欄位可以讓input裡的value成為變數，去渲染到任何有宣告mg-model為變數的標籤裡。
+<div ng-app="myApp" ng-control="myCtrl">
+	Name:<input ng-model="name">
+</div>
+<script>
+var app = angular.modul("myApp",[]);
+app.controller('myCtrl',function($scope){
+	$scope.name="John Doe";
+});
+</script>
+
+6.ng-if && ng-show
+
+ng-show:條件不成立時隱藏element。
+ng-hide:與ng-show相反，條件成立，判斷為true時隱藏element
+ng-if:依照判斷式，動態產生或移除element
+
+##表單驗證：
+
+ng-model可以和ng-show在<form></form>表單區塊共同進行表單驗證
+<form ng-app="" name="myForm">
+	Email:
+	<input type="email" name="myAddress" ng-model="text">
+	<span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
+</form>
+
+//此處不符合email規格會出現<span></span>裡的字
+
+相關教學：
+https://dotblogs.com.tw/berrynote/2016/08/14/125334
+
+ng-model指令的資料驗證(number, e-mail, required)。
+在<input>中加入屬性: type(型態)，ng-model(若ng-model屬性不存在，AngularJS會自動建立)，name(命名)，required(是否必須)。
+加入<span>，屬性:ng-show=" 表單.標籤名稱.$error.檢查項目 " ，檢查項目會依標籤名稱對應到該標籤，並檢查該標籤的type屬性是否正確。
+
+
+
+###Angular的function
+/*
+angular會用$scope這個物件啟動controller
+是故無論變數或函式都可以定義在$scope裡
+*/
+
+    <div ng-app="myApp" ng-controller='myCtrl'>
+        <ul>
+            <li ng-repeat='x in names'>
+                <!-- 這個用來寫購物車超方便,寫購物車的流程就是先宣告一個陣列，然後商品上觸發click事件後就把商品		                 的明細以物件的方式寫進陣列裡，再同時用ng-repeat把購物清單列出來 -->
+                {{x.name + ',' +x.country}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var app=angular.module('myApp',[]);
+        app.controller('myCtrl',function($scope){
+            $scope.names = [
+                {name:'Leticia',country:'Japan'},
+                {name:'Oliver',country:'Norway'},
+                {name:'Pixel',country:'Denmark'}
+            ]
+        });
+    </script>
+
+Angular的JavaScript多半透過建構子的方式去寫，他有自己的生命週期。
+所有的directive都有自己的$scope，ng-repeat有自己的$scope，ng-controller有自己的$scope
+
+####RootScope
+
+rootscope讓controller和controller之間可以交換scope間的資料，所有的應用程式都可以使用$rootscope。
+
+<div ng-app='myApp'>
+        <h1>color這裡是{{color}}</h1>
+        <div ng-controller="myCtrl">color這裡是{{color}}</div>
+        <h2>color這裡依舊是{{color}}</h2>
+    </div>
+    <script>
+    var app = angular.module('myApp',[]); //$rootScope是ng-app做用域中的全域物件
+    app.run(function($rootScope){
+        $rootScope.color="黃色";
+    });
+    app.controller('myCtrl',function($scope){
+        // $scope.color="紅色"; //如果在ng-controller的$scope裡沒有color這個屬性，便會延用$rootScope裡的color
+    });
+    </script>
+
+
+###angular filter 過濾器
+
+currency  幣值轉換
+date      日期轉換
+filter    對陣列或物件做過濾
+json      把物件轉換成json  
+limitTo   限制陣列或字串為多少字數或字元的長度
+lowercase 轉成小寫
+number    將字串轉成數值性資料
+orderby   按順序排列陣列
+number    將字串轉成數值性資料
+uppercase 將小寫轉成大寫
