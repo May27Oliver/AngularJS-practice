@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <h1 ng-click=changName()>{{firstName}}</h1>
+    </div>
+    <script>
+        var app = angular.module('myApp',[]);
+        app.controller('myCtrl',function($scope){
+            /*
+            angular會用$scope這個物件啟動controller
+            是故無論變數或函式都可以定義在$scope裡
+            */
+            $scope.firstName="Leticia";   //設定變數
+            $scope.changName=function(){  //設定函式
+                $scope.firstName="Oliver";
+            }
+        })
+    </script>
+</body>
+</html>

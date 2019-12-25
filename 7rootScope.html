@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app='myApp'>
+        <h1>color這裡是{{color}}</h1>
+        <div ng-controller="myCtrl">color這裡是{{color}}</div>
+        <h2>color這裡依舊是{{color}}</h2>
+    </div>
+    <script>
+    var app = angular.module('myApp',[]); //$rootScope是ng-app做用域中的全域物件
+    app.run(function($rootScope){
+        $rootScope.color="黃色";
+    });
+    app.controller('myCtrl',function($scope){
+        // $scope.color="紅色"; //如果在ng-controller的$scope裡沒有color這個屬性，便會延用$rootScope裡的color
+    });
+    </script>
+</body>
+</html>

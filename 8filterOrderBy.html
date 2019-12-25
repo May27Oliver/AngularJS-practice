@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <ul>
+            <li ng-repeat="x in person | orderBy:'country'">{{x.name + "," + x.country}}</li>
+        </ul>
+    </div>
+    <script>
+    angular.module('myApp',[]).controller('myCtrl',function($scope){
+        $scope.person=[
+            {name: 'Leticia',country:'EU'},
+            {name: 'Oliver',country:'China'},
+            {name: 'Anita',country:'Austria'}
+        ];
+    });
+    </script>
+</body>
+</html>

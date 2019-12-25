@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller='myCtrl'>
+        <ul>
+            <li ng-repeat='x in names'>
+                <!-- 這個用來寫購物車超方便,寫購物車的流程就是先宣告一個陣列，然後商品上觸發click事件後就把商品的明細以物件的方式寫進陣列裡，再同時用ng-repeat把購物清單列出來 -->
+                {{x.name + ',' +x.country}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var app=angular.module('myApp',[]);
+        app.controller('myCtrl',function($scope){
+            $scope.names = [
+                {name:'Leticia',country:'Japan'},
+                {name:'Oliver',country:'Norway'},
+                {name:'Pixel',country:'Denmark'}
+            ]
+        });
+    </script>
+</body>
+</html>
