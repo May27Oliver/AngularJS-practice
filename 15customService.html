@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp">
+        <h1>{{300 | myFormat}}</h1>
+        <!-- 目標將h1裡的數字轉成16進位 -->
+    </div>
+    <script>
+        var app=angular.module('myApp',[]);
+        
+        // app.service('hexify',function(){//service()的第一個參數必須跟filter陣列索引值0名字一樣
+        //    this.myFunc = function(x){
+        //        return x.toString(16);
+        //    } 
+        // }); 
+
+        app.filter('myFormat',function(){
+                return function(x){ //要filter前面的數值，先return一個function(x){return expression}
+                    return x.toString(16);
+                }
+            });
+    </script>
+</body>
+</html>

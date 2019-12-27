@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp">
+        <h1>{{300 | myFormat}}</h1>
+    </div>
+    <script>
+        var app=angular.module('myApp',[]);
+        
+        app.service('hexify',function(){//定義一個service叫做hexify，會把所有的數值轉為16進位
+           this.myFunc = function(x){
+               return x.toString(16);
+           } 
+        }); 
+
+        app.filter('myFormat',['hexify',function(hexify){//定義一個filter，引入hexify
+                // 先把要引入的service當做參數丟進function裡，那麼在filter的function裡便可叫用service了
+                return function(x){
+                    return hexify.myFunc(x);
+                };
+            }]);
+    </script>
+</body>
+</html>

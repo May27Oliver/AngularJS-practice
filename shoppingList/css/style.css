@@ -1,0 +1,163 @@
+@import url(reset.css);
+/* 總體設定 */
+body{
+    font-family: serif;
+}
+/* 外層 */
+#wrap{
+    width: 90%;
+    margin: auto;
+    padding: 5vw 0;
+}
+
+/* 標題 */
+#title-column{
+    margin-bottom:1vw;
+    font-size: 1.5vw;
+}
+
+/* 查詢欄位 | 新增欄位 */
+#search-column,#add-item-column{
+    width: 100%;
+    height: 3vw;
+    display: flex;
+}
+
+/* 搜尋欄位 */
+#search,#add-item{
+    flex: 90%;
+    height: 2vw;
+    max-width: 90%;
+    padding: .5vw;
+    font-size: 1.5vw;
+    border: 1px #e9e9e9 solid;
+}
+
+/* 搜尋欄位效果 */
+#search{
+    background-color: #e9e9e9;
+    box-shadow: none;
+}
+
+#search:focus,#add-item:focus{
+    background-color: white;
+    box-shadow: 0px 0px 8px 2px rgba(0, 133, 149, 0.2);
+}
+
+
+/* 按鈕 */
+#order,#add{
+    flex: 10%;
+    max-width: 10%;
+    height: 110%;
+    color: white;
+    border-style: none;
+    border-radius: 4px;
+    font-size: 2vw;
+}
+
+#add{
+    background-color: #db4d3e;
+}
+
+#order{
+    background-color: #e9e9e9;
+}
+
+#add:hover,.delete:hover{
+    box-shadow:0px 8px 4px -4px #999;
+    cursor: pointer;
+}
+
+#order:active,#add:active{
+    position: relative;
+    top: 1px;
+    left: 1px;
+    box-shadow:0px 7px 4px -4px #999;
+}
+
+/* 購物清單 */
+#shopping-list-column{
+    width: 100%;
+    height: 50vw;
+    background-color: #e9e9e9;
+    margin: 1.5vw 0 5vw;
+    font-weight: bold;
+    font-size: 2vw;
+    overflow:auto;
+}
+
+#item-list{
+    width: 100%;
+}
+
+.item{
+    background-color: #fff;
+    display: flex;
+    border: 1px solid #ccc;
+}
+
+.item-name{
+    flex: 60%;
+    max-width: 60%;
+}
+
+span{
+    display: block;
+    padding: 1vw;
+}
+.item-date{
+    flex: 30%;
+    max-width: 30%;
+}
+/* 刪除鍵 */
+.item-delete{
+    flex: 10%;
+    max-width: 10%;
+    position: relative;
+}
+.delete{
+    display: block;
+    background-color: #00AA00;
+    width: 3.5vw;
+    height: 3.5vw;
+    border-style: none;
+    border-radius: 50%;
+    /* margin: .4vw 0 0 2.5vw; */
+    position: absolute;
+    top: .4vw;
+    left: 2.5vw;
+    transition: .5s;
+
+}
+
+.delete:hover{
+    background-color: #db4d3e;
+}
+
+.delete::before,.delete::after{
+    content: "";
+    display: block;
+    width: 1.5vw;
+    height: 0px;
+    background-color: #fff;
+    transition: .5s;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.delete:hover::before{
+    transform: rotate(225deg);
+    height: 2px;
+
+}
+
+.delete:hover::after{
+    transform: rotate(-225deg);
+    height: 2px;
+
+}

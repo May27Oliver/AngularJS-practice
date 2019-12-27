@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl" id="wrap">
+        <div id="title-column"><h1 id="title">My Shopping List</h1></div>
+        <div id="search-column"><input type="text" id="search" placeholder="search items" ng-model="test" disabled><button id="order" disabled>order</button></div>
+        <div id="shopping-list-column">
+            <ul id="item-list">
+                <li ng-repeat="x in goods | filter : test " class="item" id="item">
+                    <span class="item-name">{{x.itemName}}</span>
+                    <span class="item-date">{{x.rightNow}}</span>
+                    <div class="item-delete"><button class="delete" ng-click="delete($event)" data-index={{$index}}></button></div>
+                </li> 
+            </ul>
+        </div>
+        <div id="add-item-column"><input type="text" id="add-item" placeholder="add shopping items here"><button ng-click="addItem()" id="add"><a href="#item">Add</button></div>
+    </div>
+    <script data-main="js/main" src="plugins/requirejs/require.min.js"></script>
+</body>
+</html>
