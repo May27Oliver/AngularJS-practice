@@ -54,6 +54,7 @@ body{
     border-style: none;
     border-radius: 4px;
     font-size: 2vw;
+    transition: .5s;
 }
 
 #add{
@@ -94,7 +95,8 @@ body{
 .item{
     background-color: #fff;
     display: flex;
-    border: 1px solid #ccc;
+    border: .05px solid #ccc;
+    border-bottom: hidden;
 }
 
 .item-name{
