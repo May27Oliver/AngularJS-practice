@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <style>
+    .platte{
+        width: 300px;
+        height: 300px;
+    }
+    .green{
+        background-color: green;
+    }
+    .red{
+        background-color: red;
+    }
+    .yellow{
+        background-color: yellow;
+    }
+    .active{
+        color:red;
+    }
+    .inactive{
+        color: blue;
+    }
+    </style>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div ng-class="{green:green, red:red, yellow:yellow}" class="platte">Hello World!!</div>
+    <input type="checkbox" ng-model="green" >green
+    <input type="checkbox" ng-model="red">red
+    <input type="checkbox" ng-model="yellow">yellow
+
+    <p ng-class="{true: 'active', false: 'inactive'}[isActive]">Hello World</p>
+    <!-- [isActive是個表達式，表達式內有true有false，根據true/false綁定不同的class，藉以改變CSS] -->
+</div>
+<script>
+var app = angular.module('myApp',[]);
+app.controller('myCtrl',function($scope){
+    $scope.isActive = false;
+});
+</script>
+</body>
+</html>
